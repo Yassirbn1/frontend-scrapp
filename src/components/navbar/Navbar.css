@@ -1,0 +1,94 @@
+/* Navbar.css */
+
+/* Navbar.css */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white; /* Changer la couleur de fond en blanc */
+    padding: 1rem 2rem;
+    color: #007bff; /* Couleur de texte bleue */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* S'assurer que la barre de navigation reste au-dessus des autres éléments */
+    transition: padding 0.3s ease; /* Ajout de la transition */
+}
+
+.navbar.sticky {
+    padding: 0.5rem 2rem; /* Modifier la taille du padding lorsqu'elle est collante */
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand-logo {
+    width: 40px; /* Ajustez la taille selon vos besoins */
+    height: auto;
+    margin-right: 10px; /* Espacement entre l'image et le texte */
+}
+
+.brand-part {
+    margin: 0; /* Assurez-vous qu'il n'y a pas de marge ajoutée */
+    padding: 0; /* Assurez-vous qu'il n'y a pas de padding ajouté */
+}
+
+.blue-dark {
+    color: #044a94; /* Bleu foncé pour certaines parties du texte */
+}
+
+.normal {
+    color: #1261b6; /* Bleu normal pour les autres parties du texte */
+}
+
+.brand-part:not(:last-child) {
+    margin-right: 7px; /* Espacement entre "Elastomer" et "Solutions" */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #007bff; /* Couleur des liens en bleu */
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #0056b3; /* Couleur plus foncée au survol */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #044a94;
+}
+
+.user-info span {
+    font-size: 1rem;
+}
+
+.logout-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #1261b6; /* Couleur de l'icône en bleu */
+    transition: color 0.3s ease;
+}
+
+.logout-icon:hover {
+    color: #e74c3c; /* Couleur au survol (rouge) */
+}

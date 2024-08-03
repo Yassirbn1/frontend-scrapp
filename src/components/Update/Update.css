@@ -1,0 +1,106 @@
+/* src/components/UpdateScrappData/Update.css */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Arrière-plan sombre semi-transparent */
+    z-index: 999; /* S'assurer que l'overlay est au-dessus de tout le contenu */
+}
+
+.update-scrapp-data-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    width: 300px; /* Taille réduite du formulaire */
+    margin: 0 auto; /* Centrage horizontal */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: absolute; /* Position absolue pour centrer verticalement */
+    top: 50%; /* Positionné au milieu de l'écran verticalement */
+    left: 50%; /* Positionné au milieu de l'écran horizontalement */
+    transform: translate(-50%, -50%); /* Ajustement pour centrer parfaitement */
+    max-height: 80vh; /* Hauteur maximale du formulaire */
+    overflow-y: auto; /* Activation du défilement vertical si nécessaire */
+    z-index: 1000; /* S'assurer que le formulaire est au-dessus de l'overlay */
+}
+
+.update-scrapp-data-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.update-scrapp-data-container .form-group {
+    margin-bottom: 15px;
+}
+
+.update-scrapp-data-container .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px; /* Espacement entre le label et le champ de saisie */
+}
+
+.update-scrapp-data-container .form-group input {
+    width: calc(100% - 24px); /* Calcul pour ajuster à droite */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.update-scrapp-data-container .button-container {
+    display: flex;
+    justify-content: space-between; /* Espacement égal entre les boutons */
+    margin-top: 20px;
+}
+
+.update-scrapp-data-container .button-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.update-scrapp-data-container .button-container .save-button {
+    width: 100px; /* Taille du bouton Enregistrer */
+    background-color: #007bff;
+    color: white;
+}
+
+.update-scrapp-data-container .button-container .cancel-button {
+    width: 100px; /* Taille du bouton Annuler */
+    background-color: #dc3545;
+    color: white;
+}
+
+.update-scrapp-data-container .button-container button:hover {
+    opacity: 0.9; /* Légère réduction de l'opacité au survol */
+}
+
+.update-scrapp-data-container .error-message {
+    color: #dc3545;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    width: 30px;
+}
+
+.close-button:hover {
+    color: #555;
+}
