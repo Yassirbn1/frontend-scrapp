@@ -1,28 +1,30 @@
 /* Navbar.css */
 
-/* Navbar.css */
-
 .navbar {
-    position: sticky;
+    position: fixed; /* Fixe la barre de navigation en haut de la page */
     top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white; /* Changer la couleur de fond en blanc */
-    padding: 1rem 2rem;
-    color: #007bff; /* Couleur de texte bleue */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* S'assurer que la barre de navigation reste au-dessus des autres éléments */
-    transition: padding 0.3s ease; /* Ajout de la transition */
+    background-color: white; /* Couleur de fond blanche */
+    padding: 1rem 2rem; /* Padding par défaut */
+    color: #007bff; /* Couleur du texte bleue */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre portée */
+    z-index: 1000; /* Pour que la navbar soit au-dessus des autres éléments */
+    transition: padding 0.3s ease, box-shadow 0.3s ease; /* Transition pour padding et ombre */
 }
 
-.navbar.sticky {
-    padding: 0.5rem 2rem; /* Modifier la taille du padding lorsqu'elle est collante */
+.navbar.shrink {
+    padding: 0.5rem 2rem; /* Padding réduit lorsque défilement */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Ombre réduite lorsque défilement */
 }
 
 .brand {
     display: flex;
     align-items: center;
+    margin-left: 22px;
 }
 
 .brand-link {
@@ -32,43 +34,9 @@
 }
 
 .brand-logo {
-    width: 40px; /* Ajustez la taille selon vos besoins */
+    width: 130px; /* Ajustez la taille du logo */
     height: auto;
     margin-right: 10px; /* Espacement entre l'image et le texte */
-}
-
-.brand-part {
-    margin: 0; /* Assurez-vous qu'il n'y a pas de marge ajoutée */
-    padding: 0; /* Assurez-vous qu'il n'y a pas de padding ajouté */
-}
-
-.blue-dark {
-    color: #044a94; /* Bleu foncé pour certaines parties du texte */
-}
-
-.normal {
-    color: #1261b6; /* Bleu normal pour les autres parties du texte */
-}
-
-.brand-part:not(:last-child) {
-    margin-right: 7px; /* Espacement entre "Elastomer" et "Solutions" */
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav-links a {
-    color: #007bff; /* Couleur des liens en bleu */
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #0056b3; /* Couleur plus foncée au survol */
 }
 
 .user-info {
@@ -80,15 +48,17 @@
 
 .user-info span {
     font-size: 1rem;
+    margin-right: 10px; /* Espacement entre le texte et les icônes */
 }
 
 .logout-icon {
     cursor: pointer;
     font-size: 1.2rem;
-    color: #1261b6; /* Couleur de l'icône en bleu */
+    color: #1261b6; /* Couleur de l'icône */
     transition: color 0.3s ease;
+    margin-right: 22px;
 }
 
 .logout-icon:hover {
-    color: #e74c3c; /* Couleur au survol (rouge) */
+    color: #e74c3c; /* Couleur au survol */
 }

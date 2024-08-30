@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'; // Importez useLocation
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import './components/calcul/calcul.css';
-import Home from './pages/home/ScrappDataList';
 import Login from './pages/Login/Login';
 import Navbar from './components/navbar/Navbar';
 import ScrappDataList from './components/ScrappDataList/ScrappDataList';
-import Insert from './components/Insert/Insert';
-import axios from './axiosConfig'; // Importez l'instance Axios configurée
-import { 
-    calculateQuantitéPF, 
-    calculateTotalConsommé, 
-    calculatePercentConsomméPF, 
-    calculatePercentRejets 
-} from './components/calcul/calcul';
+import Insertt from './components/Insertt/Insertt';
+import Updatee from './components/Updatee/Updatee';
+import axios from './axiosConfig';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     const [user, setUser] = useState(null);
     const [scrappData, setScrappData] = useState([]);
     const [shiftData, setShiftData] = useState([]);
+    const [showInsertForm, setShowInsertForm] = useState(false);
+    const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [dataId, setDataId] = useState(null);
     const navigate = useNavigate();
-    const location = useLocation(); // Utilisez useLocation pour obtenir le chemin actuel
 
     useEffect(() => {
         if (user) {
             fetchScrappData();
+            fetchShiftData();
             navigate('/scrappdata');
         }
     }, [user, navigate]);
@@ -36,13 +34,45 @@ const App = () => {
         } catch (error) {
             console.error('Échec de la récupération des données de scrapp:', error);
         }
-    
+    };
+
+    const fetchShiftData = async () => {
         try {
             const responseShift = await axios.get('/api/ScrappDataShift');
             setShiftData(responseShift.data);
         } catch (error) {
             console.error('Échec de la récupération des données de shift:', error);
         }
+    };
+
+    const handleInsertClick = () => {
+        // Fermer le formulaire de mise à jour si ouvert
+        setShowUpdateForm(false);
+        setShowInsertForm(true);
+    };
+
+    const handleUpdateClick = (id) => {
+        // Fermer le formulaire d'insertion si ouvert
+        setShowInsertForm(false);
+        setDataId(id);
+        setShowUpdateForm(true);
+    };
+
+    const handleInsertSuccess = () => {
+        fetchScrappData();
+        fetchShiftData();
+        setShowInsertForm(false);
+    };
+
+    const handleUpdateSuccess = () => {
+        fetchScrappData();
+        fetchShiftData();
+        setShowUpdateForm(false);
+    };
+
+    const handleCancel = () => {
+        setShowInsertForm(false);
+        setShowUpdateForm(false);
     };
 
     const configureAxios = (token) => {
@@ -60,46 +90,28 @@ const App = () => {
         navigate('/login');
     };
 
-    const handleInsertSuccess = () => {
-        fetchScrappData();
-    };
-
-    const quantitéEntreePr = scrappData.reduce((sum, data) => sum + (data.quantitéEntreePr || 0), 0);
-    const quantitéPF = calculateQuantitéPF(quantitéEntreePr, shiftData);
-    const totalConsommé = calculateTotalConsommé(quantitéEntreePr, shiftData);
-    const percentConsomméPF = calculatePercentConsomméPF(quantitéEntreePr, shiftData);
-    const percentRejets = calculatePercentRejets(shiftData);
-
     return (
         <div className="app-container">
-            {user && <Navbar nom={user.Nom} prenom={user.Prenom} onLogout={handleLogout} />}
-            <Routes>
-                <Route path="/" element={user ? <ScrappDataList matricule={user.Matricule} /> : <Login onLoginSuccess={handleLoginSuccess} />} />
-                <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-                <Route path="/scrappdata" element={user ? <ScrappDataList matricule={user.Matricule} /> : <Login onLoginSuccess={handleLoginSuccess} />} />
-                <Route path="/insert" element={<Insert onInsertSuccess={handleInsertSuccess} />} />
-            </Routes>
-            {user && location.pathname === '/scrappdata' && ( // Affiche les calculs uniquement si la page actuelle est '/scrappdata'
-                <div className="calculations">
-                    <h2>Calculs :</h2>
-                    <div>
-                        <label>Quantité PF:</label>
-                        <input type="number" value={quantitéPF} readOnly />
-                    </div>
-                    <div>
-                        <label>Total Consommé:</label>
-                        <input type="number" value={totalConsommé} readOnly />
-                    </div>
-                    <div>
-                        <label>% Consommé PF:</label>
-                        <input type="number" value={percentConsomméPF.toFixed(2)} readOnly />
-                    </div>
-                    <div>
-                        <label>% Rejets:</label>
-                        <input type="number" value={percentRejets.toFixed(2)} readOnly />
-                    </div>
-                </div>
+            {user && (
+                <Navbar 
+                    nom={user.Nom} 
+                    prenom={user.Prenom} 
+                    onLogout={handleLogout} 
+                    onInsertClick={handleInsertClick}
+                    onUpdateClick={handleUpdateClick}
+                />
             )}
+            {showInsertForm && <Insertt onInsertSuccess={handleInsertSuccess} onCancel={handleCancel} />}
+            {showUpdateForm && dataId && (
+                <Updatee dataId={dataId} onClose={handleCancel} />
+            )}
+
+<Routes>
+    <Route path="/" element={user ? <ScrappDataList matricule={user.code} /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+    <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+    <Route path="/scrappdata" element={user ? <ScrappDataList matricule={user.code} /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+</Routes>
+
         </div>
     );
 };

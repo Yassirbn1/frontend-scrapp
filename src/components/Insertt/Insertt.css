@@ -1,0 +1,96 @@
+/* Modal Background Overlay */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark background for focus */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050; /* Assurez-vous que c'est plus élevé que celui de la barre de navigation */
+}
+
+/* Modal Content */
+.custom-modal-content {
+    background: #fff;
+    padding: 20px; /* Reduced padding */
+    border-radius: 8px; /* Slightly smaller border radius */
+    width: 90%;
+    max-width: 600px; /* Reduced max width */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+    overflow-y: auto;
+    z-index: 1060; /* Assurez-vous que c'est plus élevé que le background */
+}
+
+/* Title Styling */
+.custom-modal-content h2 {
+    text-align: center;
+    margin-bottom: 15px; /* Reduced margin */
+    font-size: 1.5rem; /* Slightly smaller font size */
+    color: #333;
+}
+
+/* Form Styling */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted min width for responsiveness */
+    gap: 10px; /* Reduced gap */
+}
+
+/* Form Group Styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 4px; /* Reduced margin */
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ddd;
+    border-radius: 4px; /* Smaller border radius */
+    font-size: 0.875rem; /* Smaller font size */
+}
+
+/* Actions Button Styling */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px; /* Reduced gap */
+    margin-top: 15px; /* Reduced margin */
+}
+
+.btn-primary, .btn-secondary {
+    font-size: 0.875rem; /* Smaller font size */
+    padding: 10px 20px; /* Reduced padding */
+    border: none;
+    border-radius: 4px; /* Smaller border radius */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Smaller shadow */
+}

@@ -1,319 +1,166 @@
-/* ScrappDataList.css */
+.datatable-container {
+    padding: 30px;
+    font-family: Arial, sans-serif;
+}
 
-.shift-container {
+.date-picker-container {
+    margin-bottom: 30px;
+}
+
+.date-picker-container label {
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.date-picker-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Applique un curseur de type pointer à l'icône de sélection de date */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-clear-button {
+    display: none; /* Masque le bouton d'effacement */
+}
+
+
+.combined-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    font-size: 14px;
+    /* Ajout de l'overflow pour permettre le défilement horizontal */
+    overflow-x: auto;
+    display: block; /* Nécessaire pour permettre le défilement horizontal */
+}
+
+.combined-data-table th, .combined-data-table td {
+    padding: 15px;
+    text-align: center;
+}
+
+.combined-data-table th {
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #ddd;
+}
+
+.combined-data-table td {
+    border-bottom: 1px solid #ddd;
+}
+
+.combined-data-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.combined-data-table tr:first-child th {
+    border-top: 2px solid #ddd;
+}
+
+/* Média queries pour ajuster la taille des cellules et la police */
+@media (max-width: 768px) {
+    .combined-data-table th, .combined-data-table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+/* Style pour l'élément conteneur de chaque champ et icône */
+.ajouter-pn-item {
+    display: flex; /* Utilisation de Flexbox pour l'alignement horizontal */
+    align-items: center; /* Centrer les éléments verticalement */
+    margin-bottom: 10px; /* Espace entre chaque groupe de champs */
+}
+
+/* Style pour les champs de texte */
+.custom-input {
+    padding: 8px;
+    margin-right: 5px; /* Espace entre les champs et les icônes */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 150px; /* Taille personnalisée des champs */
+}
+
+/* Style commun pour les boutons */
+.btn {
+    padding: 8px 12px;
+    margin-left: 5px; /* Espace entre les champs et les boutons */
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    align-items: center;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+
+/* Autres styles de boutons pour les différentes actions */
+.btn-primary {
+    background-color: #007bff; /* Couleur bleue */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Couleur bleue foncée au survol */
+}
+
+.btn-success {
+    background-color: #28a745; /* Couleur verte */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Couleur verte foncée au survol */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Couleur rouge */
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Couleur rouge foncée au survol */
+}
+.ajouter-pn-container {
     margin: 20px;
-}
-
-.global-inputs {
-    background-color: #f0f0f0;
     padding: 20px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
 }
 
-.global-inputs div {
+.ajouter-pn-container h3 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.ajouter-pn-item {
     margin-bottom: 10px;
-    display: flex; /* Align labels and inputs on the same line */
-    align-items: center; /* Center elements vertically */
-}
-
-.global-inputs label {
-    font-weight: bold;
-    margin-right: 10px;
-    flex: 1; /* Distribute available space between label and input */
-}
-
-.global-inputs input {
-    flex: 2; /* Distribute available space between label and input */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    max-width: 100px;
-    margin-right: 830px;
-}
-
-.global-inputs button {
-    padding: 10px;
-    background-color: #a9a8a7;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Spacing between inputs and buttons */
-    width: 130px;
-}
-
-.global-inputs button:hover {
-    background-color: #044a94;
-}
-
-.shifts-data {
     display: flex;
-    gap: 20px;
-}
-
-.shift-column {
-    flex: 1;
-    background-color: #09396d;
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.shift-column h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-}
-
-.shift-column div {
-    margin-bottom: 10px;
-}
-
-.shift-column label {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.shift-column input {
-    width: 90%; /* Occupy full width of container */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.labels {
-    font-weight: bold;
-}
-
-.insert-icon {
-    padding: 8px 16px; /* Réduire la taille du padding */
-    font-size: 14px; /* Réduire la taille de la police */
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Espacement entre les entrées et les boutons */
-}
-
-.insert-icon:hover {
-    background-color: #044a94;
-}
-
-/* Modal Overlay */
-.insertt {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-    display: flex;
-    justify-content: center;
+    gap: 10px;
     align-items: center;
-    z-index: 1000; /* Ensure modal is above everything else */
 }
 
-/* Modal Container */
-.rContainer {
-    background-color: #fff; /* White background */
-    padding: 20px;
-    max-width: 400px; /* Maximum smaller width */
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    position: relative; /* Needed for absolute positioning of close button */
-}
-
-.rClose {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
+.custom-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
     color: #555;
+    background-color: #fff;
 }
 
-.rItem {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee; /* Separator line between items */
-}
-
-.rItemInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.rTitle {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.rDesc {
-    font-size: 14px;
-    color: #666;
-}
-
-.rMax {
-    margin-top: 5px;
-    font-size: 14px;
-}
-
-.rPrice {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-.rSelectedRooms {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.room {
-    display: flex;
-    flex-direction: column;
-    margin-left: 12px;
-}
-
-.room label {
-    margin-right: 10px;
-    margin-left: 10px;
-}
-
-.room input[type="checkbox"] {
-    cursor: pointer;
-}
-
-.room input[type="checkbox"]:disabled {
+.custom-input:read-only {
+    background-color: #e9ecef;
     cursor: not-allowed;
-    filter: grayscale(1); /* Make checkbox gray */
 }
 
-.rButton {
-    background-color: #044a94;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 20px;
-    width: 100%;
-}
-
-.rButton:hover {
-    background-color: #044a94;
-}
-/* Ajoutez ces styles CSS à votre fichier ScrappDataList.css */
-.insert-icon {
-    padding: 10px 20px;
-    background-color: #044a94;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Espacement entre les entrées et les boutons */
-}
-
-.insert-icon:hover {
-    background-color: #044a94;
-}
-
-.edit-button {
-    padding: 10px 20px;
-    background-color: #044a94;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Espacement entre les entrées et les boutons */
-}
-
-.edit-button:hover {
-    background-color: #044a94;
-}
-.insert-shift-button{
-    width: 100px;
-    margin-bottom: 60px;
-    margin-top: 60px;
-   
-}
-/* Modal Overlay */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Assurez-vous que la modal soit au-dessus de tout le reste */
-}
-
-/* Modal Container */
-.modal-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.modal-container label {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.modal-container input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.modal-container button {
-    padding: 10px;
-    background-color: #044a94;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-}
-
-.modal-container button:hover {
-    background-color: #044a94;
-}
-.edit-shift-button{
-    width: 70px;
-    margin-bottom: 60px;
-    margin-top: 60px;
-}
-.update-shift-button{
-    width: 70px;
-    margin-bottom: 60px;
-    margin-top: 60px;
-    background-color: #044a94;
+.custom-input::placeholder {
+    color: #aaa;
+    font-style: italic;
 }
