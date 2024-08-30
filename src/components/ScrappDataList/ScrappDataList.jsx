@@ -74,30 +74,29 @@ const percentRejets = quantiteEntreePr != null
         return `${year}-${month}-${day}`;
     }
     
-
     const fetchDataByDate = async (date) => {
         try {
             const [scrappResponse, shiftResponse, quantiteEntreePrResponse] = await Promise.all([
                 axios.get('http://localhost:5062/api/ScrappData/ByDate', { params: { date } }),
                 axios.get('http://localhost:5062/api/ScrappDataShift/ByDate', { params: { date } }),
-                axios.get('http://localhost:5062/api/ScrappData/quantiteEntreePrByDate', { params: { date } }) // Nouvelle ligne
+                axios.get('http://localhost:5062/api/ScrappData/ValuesByDate', { params: { date } }) // Nouvelle ligne pour appeler la nouvelle API
             ]);
     
-           
-            console.log('QuantitéEntréePr:', quantiteEntreePrResponse.data); // Ajoutez ce log
+            console.log('QuantitéEntréePr:', quantiteEntreePrResponse.data); // Ajoutez ce log pour vérifier la réponse
     
             setScrappData(scrappResponse.data.length > 0 ? scrappResponse.data[0] : null);
             setShiftData(Array.isArray(shiftResponse.data) ? shiftResponse.data : []);
-            setQuantiteEntreePr(quantiteEntreePrResponse.data.length > 0 ? quantiteEntreePrResponse.data[0].value : null); // Nouvelle ligne
+            setQuantiteEntreePr(quantiteEntreePrResponse.data.length > 0 ? quantiteEntreePrResponse.data[0] : null); // Ajustez selon la structure des données retournées
         } catch (error) {
             console.error('Échec de la récupération des données:', error);
             setScrappData(null);
             setShiftData([]);
-            setQuantiteEntreePr(null); // Nouvelle ligne
+            setQuantiteEntreePr(null); // Nouvelle ligne pour gérer les erreurs
         } finally {
             setIsLoading(false);
         }
     };
+    
     
     
     
@@ -303,8 +302,8 @@ const percentRejets = quantiteEntreePr != null
                         <>
                             <td rowSpan={shiftData.length}>{quantitéPF ?? 'Aucune donnée'}</td>
                             <td rowSpan={shiftData.length}>{totalConsommé ?? 'Aucune donnée'}</td>
-                            <td rowSpan={shiftData.length}>{percentConsomméPF ?? 'Aucune donnée'}</td>
-                            <td rowSpan={shiftData.length}>{percentRejets ?? 'Aucune donnée'}</td>
+                            <td rowSpan={shiftData.length}>{percentConsomméPF ?? 'Aucune donnée'}%</td>
+                            <td rowSpan={shiftData.length}>{percentRejets ?? 'Aucune donnée'}%</td>
                         </>
                     )}
                 </tr>
@@ -320,7 +319,11 @@ const percentRejets = quantiteEntreePr != null
 <br />
             {(role === 'I' && isCurrentDate) && (
                 <div className="ajouter-pn-container">
-                    <h3>PN et Test Ingénieur : </h3>
+                    <h3>PN et Test Ingénieurie : </h3>
+                    <div className="ajouter-pn-header">
+            <span className="title-pnn">PN:</span>
+            <span className="title-test-ingenieurr">Poids par Kg:</span>
+        </div>
                     {fields.map((field, index) => (
                         <div key={index} className="ajouter-pn-item">
                             <input
@@ -353,31 +356,36 @@ const percentRejets = quantiteEntreePr != null
                 </div>
             )}
 
-            {(role === 'M' || role === 'R') && isCurrentDate && (
-                <div className="ajouter-pn-container">
-                     <h3>PN et Test Ingénieur : </h3>
-                    {fields.map((field, index) => (
-                        <div key={index} className="ajouter-pn-item">
-                            <input
-                                type="text"
-                                name="pn"
-                                value={field.pn}
-                                readOnly
-                                placeholder="PN"
-                                className="custom-input"
-                            />
-                            <input
-                                type="text"
-                                name="testIngenieur"
-                                value={field.testIngenieur}
-                                readOnly
-                                placeholder="Test Ingénieur"
-                                className="custom-input"
-                            />
-                        </div>
-                    ))}
-                </div>
-            )}
+{(role === 'M' || role === 'R') && isCurrentDate && (
+    <div className="ajouter-pn-container">
+        <h3>PN et Test Ingénieurie : </h3>
+        <div className="ajouter-pn-header">
+            <span className="title-pn">PN:</span>
+            <span className="title-test-ingenieur">Poids par Kg:</span>
+        </div>
+        {fields.map((field, index) => (
+            <div key={index} className="ajouter-pn-item">
+                <input
+                    type="text"
+                    name="pn"
+                    value={field.pn}
+                    readOnly
+                    placeholder="PN"
+                    className="custom-input"
+                />
+                <input
+                    type="text"
+                    name="testIngenieur"
+                    value={field.testIngenieur}
+                    readOnly
+                    placeholder="Test Ingénieur"
+                    className="custom-input"
+                />
+            </div>
+        ))}
+    </div>
+)}
+
 
             {role === 'M' && showUpdateForm && (
                 <Updatee
