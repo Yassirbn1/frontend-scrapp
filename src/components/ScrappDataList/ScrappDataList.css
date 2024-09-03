@@ -1,5 +1,5 @@
 .datatable-container {
-    padding: 30px;
+    padding: 120px;
     font-family: Arial, sans-serif;
 }
 
@@ -197,3 +197,31 @@ h3 {
     margin-right: 33%;
     font-weight: bold;
 }
+@media (max-width: 768px) {
+    .combined-data-table th, .combined-data-table td {
+        padding: 5%;
+        font-size: 0.9em;
+    }
+    .ajouter-pn-container {
+        margin: 5%;
+        padding: 5%;
+    }
+    .custom-input {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .combined-data-table th, .combined-data-table td {
+        padding: 5%;
+        font-size: 0.8em;
+    }
+    .ajouter-pn-container {
+        margin: 5%;
+        padding: 5%;
+    }
+    .custom-input {
+        font-size: 0.8em;
+    }
+}
+

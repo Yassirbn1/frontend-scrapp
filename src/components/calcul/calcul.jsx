@@ -24,8 +24,12 @@ export const calculatePercentConsomméPF = (quantiteEntreePr, shiftData) => {
     if (quantiteEntreePr == null || !Array.isArray(shiftData)) return 0; // Protection contre les valeurs nulles et les types incorrects
     const quantitéPF = calculateQuantitéPF(quantiteEntreePr, shiftData);
     const totalConsommé = calculateTotalConsommé(quantiteEntreePr, shiftData);
-    return totalConsommé > 0 ? Math.max((quantitéPF / totalConsommé) * 100, 0) : 0;
+
+    const pourcentage = totalConsommé > 0 ? Math.max((quantitéPF / totalConsommé) * 100, 0) : 0;
+    
+    return parseFloat(pourcentage.toFixed(2)); // Limite à deux chiffres après la virgule et retourne un nombre
 };
+
 
 // Fonction pour calculer le pourcentage de Rejets
 export const calculatePercentRejets = (shiftData) => {

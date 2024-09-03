@@ -170,7 +170,7 @@ const Updatee = ({ scrappData, shiftData, onClose }) => {
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend>Données Par Shift</legend>
+                        <legend>Données de Shift {shiftData.shift}</legend>
                         <div className="form-grid">
                             <div className="form-group">
                                 <label htmlFor="purge">

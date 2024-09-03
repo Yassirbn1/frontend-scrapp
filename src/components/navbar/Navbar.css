@@ -16,10 +16,7 @@
     transition: padding 0.3s ease, box-shadow 0.3s ease; /* Transition pour padding et ombre */
 }
 
-.navbar.shrink {
-    padding: 0.5rem 2rem; /* Padding réduit lorsque défilement */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Ombre réduite lorsque défilement */
-}
+
 
 .brand {
     display: flex;

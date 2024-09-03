@@ -113,7 +113,7 @@ const Insertt = ({ onInsertSuccess, onClose }) => {
             }
         }}>
             <div className="custom-modal-content" ref={formRef} onClick={(e) => e.stopPropagation()}>
-                <h2>Insérer des données de scrapp</h2>
+                <h2>Insérer des données de scrapp </h2>
                 <form onSubmit={handleSubmit}>
                 <fieldset>
         <legend>Données Par Date</legend>
@@ -148,7 +148,7 @@ const Insertt = ({ onInsertSuccess, onClose }) => {
     </fieldset>
 
     <fieldset>
-        <legend>Données Par Shift</legend>
+        <legend>Données de Shift {formData.shift}</legend>
         <div className="form-grid">
             <div className="form-group">
                 <label htmlFor="purge">

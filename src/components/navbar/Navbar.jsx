@@ -16,16 +16,14 @@ const Navbar = ({ onLogout }) => {
         const handleScroll = () => {
             const currentScrollTop = window.scrollY;
 
-            // Log des valeurs importantes
-            console.log("Current Scroll Top:", currentScrollTop);
-            console.log("Last Scroll Top:", lastScrollTop);
+         
 
             // Vérifiez si l'utilisateur défile vers le bas
             if (currentScrollTop > lastScrollTop && currentScrollTop > 50) {
-                console.log("Shrinking Navbar");
+               
                 setIsShrunk(true);
             } else {
-                console.log("Expanding Navbar");
+               
                 setIsShrunk(false);
             }
 
@@ -46,7 +44,7 @@ const Navbar = ({ onLogout }) => {
     };
 
     return (
-        <nav className={`navbar ${isShrunk ? 'shrink' : ''}`}>
+        <nav className={`navbar`}>
             <div className="brand">
                 <Link to="/" className="brand-link">
                     <img src={lohoLogo} alt="Logo" className="brand-logo" />

@@ -8,6 +8,7 @@ import Insertt from '../../components/Insertt/Insertt';
 import ScrappDataHistory from '../../components/ScrappDataHistory/ScrappDataHistory';
 
 
+
 import { 
     calculateQuantitéPF, 
     calculateTotalConsommé, 
@@ -29,7 +30,10 @@ const ScrappDataList = () => {
     const [showHistoryModal, setShowHistoryModal] = useState(false);
     const [quantiteEntreePr, setQuantiteEntreePr] = useState(null);
     const [error, setError] = useState(null);
+    const [currentShift, setCurrentShift] = useState(null);
+    const [shifts, setShifts] = useState([]);
 
+   
 
 
 
@@ -82,10 +86,12 @@ const percentRejets = quantiteEntreePr != null
                 axios.get('http://localhost:5062/api/ScrappData/ValuesByDate', { params: { date } }) // Nouvelle ligne pour appeler la nouvelle API
             ]);
     
-            console.log('QuantitéEntréePr:', quantiteEntreePrResponse.data); // Ajoutez ce log pour vérifier la réponse
-    
+          
             setScrappData(scrappResponse.data.length > 0 ? scrappResponse.data[0] : null);
-            setShiftData(Array.isArray(shiftResponse.data) ? shiftResponse.data : []);
+            const shiftData = Array.isArray(shiftResponse.data) ? shiftResponse.data : [];
+            setShiftData(shiftData);
+            setShifts(shiftData.map(item => item.shift));
+
             setQuantiteEntreePr(quantiteEntreePrResponse.data.length > 0 ? quantiteEntreePrResponse.data[0] : null); // Ajustez selon la structure des données retournées
         } catch (error) {
             console.error('Échec de la récupération des données:', error);
@@ -97,10 +103,40 @@ const percentRejets = quantiteEntreePr != null
         }
     };
     
+
+
     
-    
+    const fetchCurrentShift = async () => {
+        try {
+            const response = await axios.get('http://localhost:5062/api/ScrappDataShift/current-shift');
+            return response.data.shift; // Retourner directement le shift
+        } catch (error) {
+            console.error('Erreur lors de la récupération du shift actuel:', error);
+            return null; // Retourner null ou une valeur par défaut en cas d'erreur
+        }
+    };
     
 
+
+const fetchCurrentShiftData = async () => {
+    try {
+        // Envoyer une requête GET à l'endpoint API
+        const response = await axios.get('http://localhost:5062/api/ScrappDataShift/current-shift-data');
+        
+        // Retourner les données du shift actuel
+        return response.data[0];
+    } catch (error) {
+        console.error('Erreur lors de la récupération des données du shift actuel:', error);
+        return []; // Retourner une liste vide en cas d'erreur
+    }
+};
+
+// Exemple d'utilisation de la méthode fetchCurrentShiftData
+fetchCurrentShiftData().then(data => {
+    console.log('Données du shift actuel:', data);
+});
+
+    
     const fetchUserRole = async () => {
         try {
             const response = await axios.get('http://localhost:5062/api/auth/currentrole');
@@ -135,18 +171,35 @@ const percentRejets = quantiteEntreePr != null
         setIsLoading(true);
     };
 
-    const handleUpdateClick = (shiftId) => {
-        const shift = shiftData.find(data => data.id === shiftId);
-        const scrapp = scrappData;
-
-        if (shift && scrapp) {
-            setSelectedScrappData(scrapp);
-            setSelectedShiftData(shift);
-            if (isCurrentDate && role === 'M') {
-                setShowUpdateForm(true);
+    const handleUpdateClick = async (shiftId) => {
+        try {
+            
+            const shift = shiftData.find(data => data.id === shiftId);
+            const scrapp = scrappData;
+            const currentShift = await fetchCurrentShift();
+            const currentShiftData = await fetchCurrentShiftData();
+             // Attendre la valeur du shift actuel
+            
+            console.log('Current Shift:',currentShiftData );
+            
+            if (currentShiftData && scrapp) {
+                setSelectedScrappData(scrapp);
+                setSelectedShiftData(currentShiftData);
+                
+                // Vérifier si le shift sélectionné correspond au shift actuel
+                if (currentShiftData.shift === currentShift && isCurrentDate && role === 'M') {
+                    setShowUpdateForm(true);
+                }
+                console.log(shifts)
+                if(!shifts.includes(currentShift)){
+                    setShowInsertForm(true);
+                }
             }
+        } catch (error) {
+            console.error('Erreur lors de la gestion de la mise à jour:', error);
         }
     };
+    
 
     const handleInsertClick = () => {
         
@@ -203,7 +256,7 @@ const percentRejets = quantiteEntreePr != null
         // Mettre à jour le localStorage
         localStorage.setItem('fields', JSON.stringify(updatedFields));
     
-        console.log('Fields après suppression:', updatedFields); // Ajoutez cette ligne pour déboguer
+        
         handleSave(); // Sauvegardez les modifications
     };
     const handleLogout = () => {
@@ -319,7 +372,7 @@ const percentRejets = quantiteEntreePr != null
 <br />
             {(role === 'I' && isCurrentDate) && (
                 <div className="ajouter-pn-container">
-                    <h3>PN et Test Ingénieurie : </h3>
+                    <h3>Test Ingénieurie : </h3>
                     <div className="ajouter-pn-header">
             <span className="title-pnn">PN:</span>
             <span className="title-test-ingenieurr">Poids par Kg:</span>
@@ -358,7 +411,7 @@ const percentRejets = quantiteEntreePr != null
 
 {(role === 'M' || role === 'R') && isCurrentDate && (
     <div className="ajouter-pn-container">
-        <h3>PN et Test Ingénieurie : </h3>
+        <h3>Test Ingénieurie : </h3>
         <div className="ajouter-pn-header">
             <span className="title-pn">PN:</span>
             <span className="title-test-ingenieur">Poids par Kg:</span>
